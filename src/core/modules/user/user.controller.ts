@@ -5,8 +5,8 @@ import {HTTP_STATUS} from "@global/types";
 import {response_handler} from "@helpers";
 
 export class UserController extends BaseController {
-    static async create(request:Request){
-        let {name, email, password, role} = request.body;
+    static async create(requestPayload, request:Request){
+        let {name, email, password, role} = requestPayload;
         let createdBy = request.loggedUser;
         try{
             let data = await new UserService().create(name, email, password, role, createdBy);
@@ -19,19 +19,19 @@ export class UserController extends BaseController {
         }
     }
 
-    static async authenticate(request:Request){
-        let {email, password} = request.body;
+    static async authenticate(requestPayload){
+        let {email, password} = requestPayload;
         let data = await new UserService().authenticate(email, password);
         return response_handler(HTTP_STATUS.SUCCESS,"User authenticated successfully", data);
     }
 
-    static getUser(request:Request){
+    static getUser(requestPayload,request:Request){
+        // console.log("controller",request.params)
         return response_handler(HTTP_STATUS.SUCCESS,"Details of Current Logged User", request.loggedUser);
     }
 
-    static async updatePermissions(request:Request){
-        let {id:user_id} = request.params;
-        let {permission_list} = request.body;
+    static async updatePermissions(requestPayload){
+        let {id:user_id, permission_list} = requestPayload;
         await new UserService().updatePermissions(user_id, permission_list);
         return response_handler(HTTP_STATUS.SUCCESS, "Permission list updated successfully");
     }

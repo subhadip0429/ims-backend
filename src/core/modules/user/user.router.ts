@@ -4,6 +4,7 @@ import {UserController} from "./user.controller";
 import {handle_request} from "@middlewares";
 import {validate_request} from "@middlewares";
 import {initializeNewExpressRouter} from "@helpers";
+import {verify_admin} from "@utils/middlewares/verify-admin.middleware";
 
 export class UserRouter extends BaseRouter {
     static publicRoutes():ExpressRouter{
@@ -23,7 +24,7 @@ export class UserRouter extends BaseRouter {
 
         router.get('/me',handle_request(UserController.getUser));
 
-        router.put('/',validate_request({
+        router.put('/',verify_admin,validate_request({
             body: ["permission_list"]
         }), handle_request(UserController.updatePermissions));
         return router;
