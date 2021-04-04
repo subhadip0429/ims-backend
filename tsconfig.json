@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "target": "es6",
+    "module": "CommonJS",
+    "outDir": "dist",
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "baseUrl": "src",
+    "paths": {
+      "@services/*" : ["services/*"],
+      "@core/*" : ["core/*"],
+      "@modules/*" : ["core/modules/*"],
+      "@utils/*" : ["utils/*"],
+      "@server" : ["server"],
+      "@decorators" : ["utils/decorators"],
+      "@middlewares" : ["utils/middlewares"],
+      "@global/types" : ["utils/global.typing"],
+      "@helpers" : ["utils/helpers"]
+    }
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

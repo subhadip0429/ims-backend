@@ -1,0 +1,7 @@
+{
+  "restartable": "rs",
+  "ext": "js,ts,html,jst,json",
+  "ignore": ["dist"],
+  "watch": ["./src"],
+  "exec": "node -r tsconfig-paths/register -r ts-node/register ./src/index.ts"
+}
