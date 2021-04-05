@@ -18,9 +18,9 @@
     "@utils/*": "dist/utils/*",
     "@server": "dist/server",
     "@decorators": "dist/utils/decorators",
-    "@middlewares": "utils/middlewares",
-    "@global/types": "utils/global.typing",
-    "@helpers": "utils/helpers"
+    "@middlewares": "dist/utils/middlewares",
+    "@global/types": "dist/utils/global.typing",
+    "@helpers": "dist/utils/helpers"
   },
   "devDependencies": {
     "typescript": "^4.2.3",

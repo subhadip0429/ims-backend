@@ -1,5 +1,4 @@
 import {NextFunction, Request, Response} from "express";
-import {ResponseMessage} from "@services/MessageService";
 import {response_handler} from "@helpers";
 import {HTTP_STATUS} from "@global/types";
 
