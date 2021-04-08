@@ -3,7 +3,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "target": "es6",
-    "module": "CommonJS",
+    "module": "amd",
     "outDir": "dist",
     "sourceMap": true,
     "moduleResolution": "node",
