@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "dev": "nodemon src/index.ts",
     "build": "tsc && ef-tspm && tsc --emitDeclarationOnly --declaration --out dist/index.js",
