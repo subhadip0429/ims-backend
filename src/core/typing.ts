@@ -11,3 +11,5 @@ export interface IRouter {
 export interface IService {
 
 }
+
+export const GST_RATE=18;
