@@ -9,7 +9,7 @@ export class UserController extends Controller {
         let {name, email, password, role} = requestPayload;
         let createdBy = request.loggedUser;
         try{
-            let data = await new UserService().create(name, email, password, role, createdBy);
+            let data = await new UserService().add(name, email, password, role, createdBy);
             return response_handler(HTTP_STATUS.CREATED,"User registered successfully",data)
         }catch (e) {
             if(e.code == 11000){

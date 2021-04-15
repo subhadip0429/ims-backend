@@ -8,13 +8,13 @@ import {Service} from "@core/service";
 
 
 @Singleton
-export class PurchaseService extends Service<IPurchase>{
-    async create(bill_no:string, bill_date:string, supplier_name:string, createdBy:IUserDocument, product_list:any[]):Promise<IPurchaseDocument>{
+export class PurchaseService extends Service<IPurchaseDocument>{
+    async add(bill_no:string, bill_date:string, supplier_name:string, createdBy:IUserDocument, product_list:any[]):Promise<IPurchaseDocument>{
         const billDate = new Date(bill_date);
         const supplierService=new SupplierService();
         const purchaseProductService=new PurchaseProductService();
-        const supplier=await supplierService.createIfNotExist(supplier_name);
-        const products=await purchaseProductService.createMultiple(product_list);
+        const supplier=await supplierService.addIfNotExist(supplier_name);
+        const products=await purchaseProductService.addMultiple(product_list);
         const {netAmount,totalAmount,product_count}=purchaseProductService.calculateTotalAmount(products);
         const purchase=new Purchase({
             bill_no,

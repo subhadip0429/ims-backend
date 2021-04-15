@@ -9,7 +9,7 @@ export class PurchaseController extends Controller implements IController {
     static async addPurchase(payload,request:Request){
         const {bill_no,bill_date,supplier_name,product_list}=payload;
         const createdBy=request.loggedUser;
-        const result=await new PurchaseService().create(bill_no,bill_date,supplier_name,createdBy,product_list);
+        const result=await new PurchaseService().add(bill_no,bill_date,supplier_name,createdBy,product_list);
         return response_handler(HTTP_STATUS.CREATED,"Purchase Added",result);
     }
 
