@@ -28,15 +28,21 @@ export class PurchaseProductService extends Service<IPurchaseProductDocument, IP
     }
 
 
-    async addMultiple(product_list:any[]):Promise<IPurchaseProductDocument[]>{
+    async addMultiple(product_list: Omit<IPurchaseProduct,"product_id" | "purchase_id" | "expiry">[] | {expiry:string}[], purchase_id:string):Promise<IPurchaseProductDocument[]>{
         const productService=new ProductService();
         return Promise.all(product_list.map(async product => {
             const productItem=await productService.addIfNotExist(product.product_name);
-            return  this.add(productItem._id,productItem.product_name,product.batch_no,product.purchase_id,product.expiry,product.quantity,product.unit_buying_price,product.unit_selling_price);
+            return  this.add(productItem._id,productItem.product_name,product.batch_no,purchase_id, product.expiry,product.quantity,product.unit_buying_price,product.unit_selling_price);
         }));
     }
 
     calculateTotalAmount(products : IPurchaseProductDocument[]){
+        const netAmount=products.reduce((sum,product) => sum+=product.quantity*product.unit_buying_price,0);
+        const totalAmount=netAmount+(netAmount*GST_RATE);
+        return {netAmount,totalAmount,product_count:products.length};
+    }
+
+    calculateTotalAmountFromInput(products : any[]){
         const netAmount=products.reduce((sum,product) => sum+=product.quantity*product.unit_buying_price,0);
         const totalAmount=netAmount+(netAmount*GST_RATE);
         return {netAmount,totalAmount,product_count:products.length};

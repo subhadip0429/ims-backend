@@ -18,10 +18,9 @@ export class PurchaseService extends Service<IPurchaseDocument, IPurchase>{
         const supplierService=new SupplierService();
         const purchaseProductService=new PurchaseProductService();
         const supplier=await supplierService.addIfNotExist(supplier_name);
-        const products=await purchaseProductService.addMultiple(product_list);
-        const {netAmount,totalAmount,product_count}=purchaseProductService.calculateTotalAmount(products);
-        const purchase = this.builder({
-            bill_no,
+        const {netAmount,totalAmount,product_count}=purchaseProductService.calculateTotalAmount(product_list);
+        const purchase = await this.create({
+            bill_no: bill_no,
             bill_date:billDate,
             supplier_name,
             supplier_id:supplier._id,
@@ -30,6 +29,8 @@ export class PurchaseService extends Service<IPurchaseDocument, IPurchase>{
             net_amount:netAmount,
             createdBy,
         });
-        return purchase.save();
+
+        await purchaseProductService.addMultiple(product_list, purchase._id);
+        return purchase;
     }
 }

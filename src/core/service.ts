@@ -30,7 +30,10 @@ export class Service<T extends Document, K = any> implements IService<SoftDelete
         return new this._model(doc);
     }
 
-    create(docs: (T | DocumentDefinition<T>)[], options: SaveOptions = {}): Promise<T[]>{
+    create(doc: (T | DocumentDefinition<T>)): Promise<T>{
+        return this._model.create(doc);
+    }
+    createMany(docs: (T | DocumentDefinition<T>)[], options: SaveOptions = {}) {
         return this._model.create(docs, options);
     }
 
