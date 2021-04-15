@@ -1,10 +1,10 @@
-import {model, Schema, Types} from "mongoose";
-import {IPurchaseProduct} from "@modules/purchase_product/typing";
+import {model, Schema, Types, Model} from "mongoose";
+import {IPurchaseProductDocument} from "./typing";
 
 
 
 
-const PurchaseProductSchema:Schema<IPurchaseProduct> = new Schema<IPurchaseProduct>({
+const PurchaseProductSchema:Schema<IPurchaseProductDocument> = new Schema<IPurchaseProductDocument>({
     product_id :{type:Types.ObjectId, required : true, ref : "Product",index : true},
     product_name :{type : String, required : true},
     batch_no : {type: String , required : true , index : true},
@@ -17,4 +17,4 @@ const PurchaseProductSchema:Schema<IPurchaseProduct> = new Schema<IPurchaseProdu
     timestamps : true ,
 })
 
-export const PurchaseProduct=model<IPurchaseProduct>("PurchaseProduct",PurchaseProductSchema,"purchase_product");
+export const PurchaseProduct:Model<IPurchaseProductDocument> = model<IPurchaseProductDocument>("PurchaseProduct",PurchaseProductSchema,"purchase_product");

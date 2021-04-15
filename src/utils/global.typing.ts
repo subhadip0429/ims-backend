@@ -1,5 +1,5 @@
 import {Types} from "mongoose";
-import {IUser} from "@modules/user"
+import {IUserDocument} from "@modules/user"
 
 export type MongooseObjectID = Types.ObjectId | string ;
 
@@ -16,12 +16,16 @@ export enum HTTP_STATUS {
     INTERNAL_SERVER_ERROR = 500
 }
 
+export const GST_RATE=18;
+
 //Custom declaration overriding
 declare global {
     namespace Express {
         export interface Request {
-            loggedUser?: IUser
+            loggedUser?: IUserDocument
         }
     }
 }
+
+
 

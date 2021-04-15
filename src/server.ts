@@ -4,7 +4,7 @@ import {Environment} from "@global/types";
 import * as http from "http";
 import {PassportAuth} from "@services/AuthService";
 import {Mongodb} from "@services/Database";
-import {Router} from "@core/router";
+import {MainRouter} from "@core/router";
 
 export class Server {
     private readonly app:express.Application = null;
@@ -35,8 +35,8 @@ export class Server {
 
         //Routers
         this.app.all('/health',((req, res) => res.send("up")));
-        this.app.use(Router.publicRoutes());
-        this.app.use(PassportAuth.authenticate('jwt', {session : false}),PassportAuth.handleLoggedUser,Router.privateRoutes());
+        this.app.use(MainRouter.publicRoutes());
+        this.app.use(PassportAuth.authenticate('jwt', {session : false}),PassportAuth.handleLoggedUser,MainRouter.privateRoutes());
 
     }
 

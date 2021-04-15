@@ -1,10 +1,10 @@
 import {Request, Response} from "express";
-import {BaseController} from "@core/controller";
+import {Controller} from "@core/controller";
 import {UserService} from "@modules/user/user.service";
 import {HTTP_STATUS} from "@global/types";
 import {response_handler} from "@helpers";
 
-export class UserController extends BaseController {
+export class UserController extends Controller {
     static async create(requestPayload, request:Request){
         let {name, email, password, role} = requestPayload;
         let createdBy = request.loggedUser;

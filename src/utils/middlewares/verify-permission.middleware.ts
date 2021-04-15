@@ -1,5 +1,5 @@
 import {NextFunction, Request, Response} from "express";
-import {IUser} from "@modules/user";
+import {IUserDocument} from "@modules/user";
 import {ResponseMessage} from "@services/MessageService";
 import {array_wrap, response_handler} from "@helpers";
 import {HTTP_STATUS} from "@global/types";
@@ -13,7 +13,7 @@ import {HTTP_STATUS} from "@global/types";
                  .send(response);
          }
 
-         const authenticatedUser: IUser = request.loggedUser;
+         const authenticatedUser: IUserDocument = request.loggedUser;
 
          if (authenticatedUser.isAdmin()) {
              return next();

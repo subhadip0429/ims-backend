@@ -1,16 +1,16 @@
 import {Singleton} from "@decorators";
-import {SupplierService} from "@modules/supplier/supplier.service";
-import {PurchaseProductService} from "@modules/purchase_product/purchase-product.service";
-import {Purchase} from "@modules/purchase/purchase.model";
-import {IPurchase} from "@modules/purchase/typing";
-import {IUser} from "@modules/user/typing";
-import * as moment from "moment-timezone";
+import {SupplierService} from "@modules/supplier";
+import {PurchaseProductService} from "@modules/purchase_product";
+import {Purchase} from "./purchase.model";
+import {IPurchase, IPurchaseDocument} from "./typing";
+import {IUserDocument} from "@modules/user";
+import {Service} from "@core/service";
 
 
 @Singleton
-export class PurchaseService{
-    async create(bill_no:string,bill_date:string,supplier_name:string,createdBy:IUser,product_list:any[]):Promise<IPurchase>{
-        const billDate=moment(bill_date).toDate();
+export class PurchaseService extends Service<IPurchase>{
+    async create(bill_no:string, bill_date:string, supplier_name:string, createdBy:IUserDocument, product_list:any[]):Promise<IPurchaseDocument>{
+        const billDate = new Date(bill_date);
         const supplierService=new SupplierService();
         const purchaseProductService=new PurchaseProductService();
         const supplier=await supplierService.createIfNotExist(supplier_name);

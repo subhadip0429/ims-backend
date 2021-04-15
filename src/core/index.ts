@@ -1,2 +1,4 @@
 export { IController, IRouter, IService} from "./typing"
-export {Router} from "./router"
+export {MainRouter} from "./router"
+export {Controller} from "./controller"
+export {Service} from "./service"

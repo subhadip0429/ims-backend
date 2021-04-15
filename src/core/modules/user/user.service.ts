@@ -1,10 +1,11 @@
 import {Singleton} from "@decorators";
-import {IUser, UserRole} from "@modules/user/typing";
+import {IUser, IUserDocument, UserRole} from "@modules/user/typing";
 import {User} from "./user.model";
+import {Service} from "@core/service";
 
 @Singleton
-export class UserService {
-   async create(name:string, email:string, password:string, role:UserRole, createdBy:IUser = null) : Promise<{ user_id: string, token: string }> {
+export class UserService extends Service<IUser>{
+   async create(name:string, email:string, password:string, role:UserRole, createdBy:IUserDocument = null) : Promise<{ user_id: string, token: string }> {
        const user = new User({
            name,
            email,

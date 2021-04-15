@@ -1,8 +1,9 @@
-import {model, Schema, Types} from "mongoose";
-import {IUser, UserRole} from "./typing";
+import {model, Schema, Types, Model} from "mongoose";
+import {IUserDocument, UserRole} from "./typing";
 import {compareSync as compareHash, hashSync as hash} from "bcrypt";
 import {sign as JWTSign } from "jsonwebtoken";
-const UserSchema:Schema<IUser> = new Schema<IUser>({
+import {Mode} from "fs-extra";
+const UserSchema:Schema<IUserDocument> = new Schema<IUserDocument>({
     name: { type: String, required: true},
     email: {type: String, required: true, unique:true},
     password: {type: String, required: true},
@@ -47,4 +48,4 @@ UserSchema.pre('save', function (next){
 
 
 
-export const User = model<IUser>('User',UserSchema);
+export const User:Model<IUserDocument> = model<IUserDocument>('User',UserSchema);

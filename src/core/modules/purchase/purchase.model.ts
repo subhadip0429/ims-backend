@@ -1,6 +1,6 @@
-import {model, Schema, Types} from "mongoose";
-import {IPurchase} from "./typing";
-const PurchaseSchema:Schema<IPurchase> = new Schema<IPurchase>({
+import {model, Schema, Types, Model} from "mongoose";
+import {IPurchaseDocument} from "./typing";
+const PurchaseSchema:Schema<IPurchaseDocument> = new Schema<IPurchaseDocument>({
     bill_no:{type: String, required: true,unique : true},
     bill_date:{type: Date, required: true},
     supplier_name:{type: String, required: true},
@@ -14,5 +14,5 @@ const PurchaseSchema:Schema<IPurchase> = new Schema<IPurchase>({
 })
 
 
-export const Purchase = model<IPurchase>('Purchase',PurchaseSchema,"purchase");
+export const Purchase:Model<IPurchaseDocument> = model<IPurchaseDocument>('Purchase',PurchaseSchema,"purchase");
 

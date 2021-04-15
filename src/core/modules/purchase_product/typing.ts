@@ -1,13 +1,13 @@
 import {MongooseObjectID} from "@global/types";
-import {IProduct} from "@modules/product/typing";
-import {IPurchase} from "@modules/purchase/typing";
+import {IProductDocument} from "@modules/product/typing";
+import {IPurchaseDocument} from "@modules/purchase/typing";
 import {Document} from "mongoose";
 
-interface IPurchaseProductBase{
-    product_id : (MongooseObjectID | IProduct),
+export interface IPurchaseProduct{
+    product_id : (MongooseObjectID | IProductDocument),
     product_name : string,
     batch_no : string,
-    purchase_id : (MongooseObjectID | IPurchase),
+    purchase_id : (MongooseObjectID | IPurchaseDocument),
     expiry : Date,
     quantity : number ,
     unit_buying_price:number,
@@ -17,6 +17,6 @@ interface IPurchaseProductBase{
 
 }
 
-export interface IPurchaseProduct extends IPurchaseProductBase, Document {
+export interface IPurchaseProductDocument extends IPurchaseProduct, Document {
 
 }

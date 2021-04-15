@@ -1,7 +1,7 @@
-import {model, Schema, Types} from "mongoose";
-import {IProduct} from "@modules/product/typing";
+import {model, Schema, Model} from "mongoose";
+import {IProductDocument} from "./typing";
 
-const ProductSchema:Schema<IProduct> = new Schema<IProduct>({
+const ProductSchema:Schema<IProductDocument> = new Schema<IProductDocument>({
     product_name:{type: String, required: true},
     composition:{type: String},
 },{
@@ -9,5 +9,5 @@ const ProductSchema:Schema<IProduct> = new Schema<IProduct>({
 })
 
 
-export const Product = model<IProduct>('Product',ProductSchema,"product");
+export const Product:Model<IProductDocument> = model<IProductDocument>('Product',ProductSchema,"product");
 

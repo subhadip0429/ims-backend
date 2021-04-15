@@ -1,5 +1,5 @@
 export {User} from "./user.model"
-export {IUser} from "./typing";
+export {IUserDocument} from "./typing";
 export {UserRouter} from "./user.router";
 export {UserService} from "./user.service"
 

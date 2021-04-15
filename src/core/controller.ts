@@ -1,5 +1,5 @@
 import {IController} from "@core/typing";
 
-export class BaseController implements IController{
+export class Controller implements IController{
 
 }

@@ -1,12 +1,12 @@
 import {Document} from "mongoose";
 
-interface ISupplierBase{
+export interface ISupplier{
     supplier_name: string,
     supplier_address?: string,
     createdAt?: Date
     updatedAt?: Date
 }
 
-export interface ISupplier extends ISupplierBase, Document {
+export interface ISupplierDocument extends ISupplier, Document {
 
 }

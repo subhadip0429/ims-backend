@@ -1,26 +1,26 @@
 import {MongooseObjectID} from "@global/types";
 import {Document} from "mongoose";
-import {IUser} from "@modules/user/typing";
-import {ISupplier} from "@modules/supplier/typing";
+import {IUserDocument} from "@modules/user/typing";
+import {ISupplierDocument} from "@modules/supplier/typing";
 
 
 
-interface IPurchaseBase{
+export interface IPurchase{
     bill_no: string,
     bill_date: Date,
     supplier_name: string,
-    supplier_id: (MongooseObjectID | ISupplier),
+    supplier_id: (MongooseObjectID | ISupplierDocument),
     total_quantity:number,
     total_amount: number,
     net_amount: number,
-    createdBy?: (MongooseObjectID | IUser),
+    createdBy?: (MongooseObjectID | IUserDocument),
     createdAt?: Date
     updatedAt?: Date
 }
 
 
 
-export interface IPurchase extends IPurchaseBase, Document {
+export interface IPurchaseDocument extends IPurchase, Document {
 
 }
 

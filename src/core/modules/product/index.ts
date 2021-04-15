@@ -1,4 +1,3 @@
-export {Product} from "./product.model"
-export {Product} from "./typing";
-export {ProductRouter} from "./product.router";
-export {ProductService} from "./product.service"
+export {ProductService} from "./product.service";
+export {} from "./product.router"
+export {IProduct, IProductDocument} from "./typing"

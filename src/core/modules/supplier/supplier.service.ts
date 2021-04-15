@@ -1,10 +1,11 @@
-import {Singleton} from "@utils/decorators/singleton.decorator";
-import {Supplier} from "@modules/supplier/supplier.model";
-import {ISupplier} from "@modules/supplier/typing";
+import {Singleton} from "@decorators";
+import {Supplier} from "./supplier.model";
+import {ISupplier, ISupplierDocument} from "./typing";
+import {Service} from "@core/service";
 
 @Singleton
-export  class SupplierService{
-    async create(supplier_name:string,supplier_address:string = null):Promise<ISupplier>{
+export  class SupplierService extends Service<ISupplier>{
+    async create(supplier_name:string,supplier_address:string = null):Promise<ISupplierDocument>{
         const supplier=new Supplier({
             supplier_name
         });
@@ -15,7 +16,7 @@ export  class SupplierService{
 
     }
 
-    async createIfNotExist(supplier_name:string):Promise<ISupplier>{
+    async createIfNotExist(supplier_name:string):Promise<ISupplierDocument>{
         let supplier=await this.findOne({supplier_name});
         if(!supplier){
             supplier=await this.create(supplier_name);
@@ -23,7 +24,7 @@ export  class SupplierService{
         return supplier;
     }
 
-    async findOne(query:any={},project:any = {}):Promise<ISupplier>{
+    async findOne(query:any={},project:any = {}):Promise<ISupplierDocument>{
         return Supplier.findOne(query, project).exec();
     }
 }

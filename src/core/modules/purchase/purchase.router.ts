@@ -1,4 +1,4 @@
-import {BaseRouter} from "@core/router";
+import {Router} from "@core/router";
 import {Router as ExpressRouter} from "express";
 import {PurchaseController} from "@modules/purchase/purchase.controller";
 import {handle_request} from "@middlewares";
@@ -7,7 +7,7 @@ import {initializeNewExpressRouter} from "@helpers";
 
 
 
-export class PurchaseRouter extends BaseRouter{
+export class PurchaseRouter extends Router{
     static publicRoutes():ExpressRouter{
         const router = initializeNewExpressRouter();
         return router ;

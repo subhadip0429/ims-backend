@@ -8,7 +8,7 @@ export enum UserRole {
 
 export type UserPermissions = string[];
 
-interface IUserBase{
+export interface IUser{
     name: string
     email: string
     password: string
@@ -16,12 +16,12 @@ interface IUserBase{
     lastLoginAt: Date,
     blockedAt: Date,
     permissions?: UserPermissions
-    createdBy?: (MongooseObjectID | IUser),
+    createdBy?: (MongooseObjectID | IUserDocument),
     createdAt?: Date
     updatedAt?: Date
 }
 
-export interface IUser extends IUserBase, Document {
+export interface IUserDocument extends IUser, Document {
     isAdmin():boolean,
     authenticate(password:string):boolean,
     getToken():string

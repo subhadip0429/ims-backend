@@ -1,11 +1,12 @@
-import {Singleton} from "@utils/decorators/singleton.decorator";
-import {Product} from "@modules/product/product.model";
-import {IProduct} from "@modules/product/typing";
+import {Singleton} from "@decorators";
+import {Product} from "./product.model";
+import {IProduct, IProductDocument} from "./typing";
+import {Service} from "@core/service";
 
 
 @Singleton
-export  class ProductService{
-    async create(product_name:string,composition:string = null):Promise<IProduct>{
+export  class ProductService extends Service<IProduct>{
+    async create(product_name:string,composition:string = null):Promise<IProductDocument>{
         const product=new Product({
             product_name
         });
@@ -16,7 +17,7 @@ export  class ProductService{
 
     }
 
-async createIfNotExist(product_name:string):Promise<IProduct>{
+async createIfNotExist(product_name:string):Promise<IProductDocument>{
         let product=await this.findOne({product_name});
         if(!product){
             product=await this.create(product_name);
@@ -24,7 +25,11 @@ async createIfNotExist(product_name:string):Promise<IProduct>{
         return product;
     }
 
-    async findOne(query:any={},project:any = {}):Promise<IProduct>{
+    async findOne(query={},project = {}):Promise<IProductDocument>{
         return Product.findOne(query, project).exec();
+    }
+
+   async find(query, project): Promise<IProductDocument> {
+        return Promise.resolve(undefined);
     }
 }

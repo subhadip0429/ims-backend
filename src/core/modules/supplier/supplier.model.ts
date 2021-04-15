@@ -1,12 +1,12 @@
-import {model, Schema, Types} from "mongoose";
-import {ISupplier} from "@modules/supplier/typing";
+import {model, Schema, Model} from "mongoose";
+import {ISupplier, ISupplierDocument} from "@modules/supplier/typing";
 
-const SupplierSchema:Schema<ISupplier> = new Schema<ISupplier>({
+const SupplierSchema:Schema<ISupplierDocument> = new Schema<ISupplierDocument>({
     supplier_name:{type: String, required: true},
     supplier_address:{type: String}
 },{
     timestamps: true
 })
 
-export const Supplier = model<ISupplier>('Supplier',SupplierSchema,"supplier");
+export const Supplier:Model<ISupplierDocument> = model<ISupplierDocument>('Supplier',SupplierSchema,"supplier");
 

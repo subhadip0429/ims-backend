@@ -1,7 +1,7 @@
 import {Document} from "mongoose";
 
 
-interface IProductBase{
+export interface IProduct{
     product_name: string,
     composition?: string,
     createdAt?: Date
@@ -9,6 +9,6 @@ interface IProductBase{
 
 }
 
-export interface IProduct extends IProductBase, Document {
+export interface IProductDocument extends IProduct, Document {
 
 }
