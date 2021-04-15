@@ -21,18 +21,29 @@ export class UserController extends Controller {
 
     static async authenticate(requestPayload){
         let {email, password} = requestPayload;
-        let data = await new UserService().authenticate(email, password);
-        return response_handler(HTTP_STATUS.SUCCESS,"User authenticated successfully", data);
+        try{
+            let data = await new UserService().authenticate(email, password);
+            return response_handler(HTTP_STATUS.SUCCESS,"User authenticated successfully", data);
+        }catch (e) {
+            if(e.message == "NOT FOUND") return response_handler(HTTP_STATUS.BAD_REQUEST, "Email ID is not registered");
+            if(e.message == "WRONG PASSWORD") return response_handler(HTTP_STATUS.BAD_REQUEST, "Invalid Password");
+            throw e;
+        }
     }
 
     static getUser(requestPayload,request:Request){
-        // console.log("controller",request.params)
         return response_handler(HTTP_STATUS.SUCCESS,"Details of Current Logged User", request.loggedUser);
     }
 
     static async updatePermissions(requestPayload){
-        let {id:user_id, permission_list} = requestPayload;
-        await new UserService().updatePermissions(user_id, permission_list);
-        return response_handler(HTTP_STATUS.SUCCESS, "Permission list updated successfully");
+        try{
+            let {id:user_id, permission_list} = requestPayload;
+            await new UserService().updatePermissions(user_id, permission_list);
+            return response_handler(HTTP_STATUS.SUCCESS, "Permission list updated successfully");
+        }catch (e) {
+            if(e.message == "NOT FOUND") return response_handler(HTTP_STATUS.BAD_REQUEST, "User not found");
+            throw e;
+        }
+
     }
 }
