@@ -1,17 +1,17 @@
 import {Singleton} from "@decorators";
 import {Product} from "./product.model";
-import {IProductDocument} from "./typing";
+import {IProduct, IProductDocument} from "./typing";
 import {Service} from "@core/service";
 
 
 @Singleton
-export  class ProductService extends Service<IProductDocument>{
+export  class ProductService extends Service<IProductDocument, IProduct>{
     constructor() {
         super();
         this.setModel(Product);
     }
     async add(product_name:string,composition:string = null):Promise<IProductDocument>{
-        const product=new Product({
+        const product = this.builder({
             product_name
         });
         if(composition){

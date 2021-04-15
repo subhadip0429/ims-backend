@@ -1,7 +1,8 @@
-import {MongooseObjectID} from "@global/types";
 import {Document} from "mongoose";
-import {IUserDocument} from "@modules/user/typing";
-import {ISupplierDocument} from "@modules/supplier/typing";
+import {SoftDeleteInterface} from "mongoose-delete";
+import {MongooseObjectID} from "@global/types";
+import {IUserDocument} from "@modules/user";
+import {ISupplierDocument} from "@modules/supplier";
 
 
 
@@ -20,7 +21,7 @@ export interface IPurchase{
 
 
 
-export interface IPurchaseDocument extends IPurchase, Document {
+export interface IPurchaseDocument extends IPurchase, Document, SoftDeleteInterface {
 
 }
 

@@ -2,13 +2,13 @@ import {Singleton} from "@decorators";
 import {SupplierService} from "@modules/supplier";
 import {PurchaseProductService} from "@modules/purchase_product";
 import {Purchase} from "./purchase.model";
-import {IPurchaseDocument} from "./typing";
+import {IPurchase, IPurchaseDocument} from "./typing";
 import {IUserDocument} from "@modules/user";
 import {Service} from "@core/service";
 
 
 @Singleton
-export class PurchaseService extends Service<IPurchaseDocument>{
+export class PurchaseService extends Service<IPurchaseDocument, IPurchase>{
     constructor() {
         super();
         this.setModel(Purchase);
@@ -20,7 +20,7 @@ export class PurchaseService extends Service<IPurchaseDocument>{
         const supplier=await supplierService.addIfNotExist(supplier_name);
         const products=await purchaseProductService.addMultiple(product_list);
         const {netAmount,totalAmount,product_count}=purchaseProductService.calculateTotalAmount(products);
-        const purchase=new Purchase({
+        const purchase = this.builder({
             bill_no,
             bill_date:billDate,
             supplier_name,
@@ -29,7 +29,6 @@ export class PurchaseService extends Service<IPurchaseDocument>{
             total_amount:totalAmount,
             net_amount:netAmount,
             createdBy,
-
         });
         return purchase.save();
     }

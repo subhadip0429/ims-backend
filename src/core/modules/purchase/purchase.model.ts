@@ -1,4 +1,5 @@
 import {model, Schema, Types, Model} from "mongoose";
+import * as softDeletePlugin from "mongoose-delete";
 import {IPurchaseDocument} from "./typing";
 const PurchaseSchema:Schema<IPurchaseDocument> = new Schema<IPurchaseDocument>({
     bill_no:{type: String, required: true,unique : true},
@@ -13,6 +14,7 @@ const PurchaseSchema:Schema<IPurchaseDocument> = new Schema<IPurchaseDocument>({
     timestamps: true
 })
 
+PurchaseSchema.plugin(softDeletePlugin,{ overrideMethods: true, deletedAt: true })
 
-export const Purchase:Model<IPurchaseDocument> = model<IPurchaseDocument>('Purchase',PurchaseSchema,"purchase");
+export const Purchase:softDeletePlugin.SoftDeleteModel<IPurchaseDocument> = model<IPurchaseDocument, softDeletePlugin.SoftDeleteModel<IPurchaseDocument>>('Purchase',PurchaseSchema,"purchase");
 

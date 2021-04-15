@@ -1,7 +1,8 @@
-import {MongooseObjectID} from "@global/types";
-import {IProductDocument} from "@modules/product/typing";
-import {IPurchaseDocument} from "@modules/purchase/typing";
 import {Document} from "mongoose";
+import {SoftDeleteInterface} from "mongoose-delete"
+import {MongooseObjectID} from "@global/types";
+import {IProductDocument} from "@modules/product";
+import {IPurchaseDocument} from "@modules/purchase";
 
 export interface IPurchaseProduct{
     product_id : (MongooseObjectID | IProductDocument),
@@ -17,6 +18,6 @@ export interface IPurchaseProduct{
 
 }
 
-export interface IPurchaseProductDocument extends IPurchaseProduct, Document {
+export interface IPurchaseProductDocument extends IPurchaseProduct, Document, SoftDeleteInterface {
 
 }

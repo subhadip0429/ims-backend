@@ -1,5 +1,6 @@
 import {MongooseObjectID} from "@global/types";
 import {Document} from "mongoose";
+import {SoftDeleteInterface} from "mongoose-delete"
 
 export enum UserRole {
     ADMIN = "ADMIN",
@@ -13,15 +14,15 @@ export interface IUser{
     email: string
     password: string
     role: UserRole
-    lastLoginAt: Date,
-    blockedAt: Date,
+    lastLoginAt?: Date,
+    blockedAt?: Date,
     permissions?: UserPermissions
     createdBy?: (MongooseObjectID | IUserDocument),
     createdAt?: Date
     updatedAt?: Date
 }
 
-export interface IUserDocument extends IUser, Document {
+export interface IUserDocument extends IUser, Document , SoftDeleteInterface{
     isAdmin():boolean,
     authenticate(password:string):boolean,
     getToken():string

@@ -1,4 +1,5 @@
-import {model, Schema, Model} from "mongoose";
+import {model, Schema} from "mongoose";
+import * as softDeletePlugin from "mongoose-delete";
 import {IProductDocument} from "./typing";
 
 const ProductSchema:Schema<IProductDocument> = new Schema<IProductDocument>({
@@ -8,6 +9,8 @@ const ProductSchema:Schema<IProductDocument> = new Schema<IProductDocument>({
     timestamps: true
 })
 
+ProductSchema.plugin(softDeletePlugin,{ overrideMethods: true, deletedAt: true });
 
-export const Product:Model<IProductDocument> = model<IProductDocument>('Product',ProductSchema,"product");
+
+export const Product: softDeletePlugin.SoftDeleteModel<IProductDocument> = model<IProductDocument, softDeletePlugin.SoftDeleteModel<IProductDocument>>('Product',ProductSchema,"product");
 

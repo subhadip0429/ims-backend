@@ -1,8 +1,9 @@
-import {model, Schema, Types, Model} from "mongoose";
-import {IUserDocument, UserRole} from "./typing";
-import {compareSync as compareHash, hashSync as hash} from "bcrypt";
+import {model, Schema, Types} from "mongoose";
+import * as softDeletePlugin from "mongoose-delete";
 import {sign as JWTSign } from "jsonwebtoken";
-import {Mode} from "fs-extra";
+import {compareSync as compareHash, hashSync as hash} from "bcrypt";
+import {IUserDocument, UserRole} from "./typing";
+
 const UserSchema:Schema<IUserDocument> = new Schema<IUserDocument>({
     name: { type: String, required: true},
     email: {type: String, required: true, unique:true},
@@ -15,12 +16,16 @@ const UserSchema:Schema<IUserDocument> = new Schema<IUserDocument>({
 },{
     timestamps: true
 });
+
 UserSchema.set('toJSON', {
-    transform: function (doc, ret, options) {
+    transform: function (doc, ret) {
         delete ret.password;
         return ret;
     }
 });
+
+UserSchema.plugin(softDeletePlugin,{ overrideMethods: true, deletedAt: true });
+
 UserSchema.method('isAdmin', function (){
     return this.role == UserRole.ADMIN;
 })
@@ -48,4 +53,4 @@ UserSchema.pre('save', function (next){
 
 
 
-export const User:Model<IUserDocument> = model<IUserDocument>('User',UserSchema);
+export const User:softDeletePlugin.SoftDeleteModel<IUserDocument> = model<IUserDocument, softDeletePlugin.SoftDeleteModel<IUserDocument>>('User',UserSchema);

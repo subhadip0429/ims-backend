@@ -6,10 +6,11 @@ export interface IRouter {
 
 }
 
-export interface IService<T = any>{
-    _model
+export interface IService<T>{
+    _model:T
     setModel(model:T)
     getModel():T
+    raw():T
 }
 
 export interface PaginationOptions<T> {

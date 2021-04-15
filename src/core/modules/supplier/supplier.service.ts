@@ -10,7 +10,7 @@ export  class SupplierService extends Service<ISupplierDocument>{
         this.setModel(Supplier);
     }
     async add(supplier_name:string,supplier_address:string = null):Promise<ISupplierDocument>{
-        const supplier=new Supplier({
+        const supplier = this.builder({
             supplier_name
         });
         if(supplier_address){

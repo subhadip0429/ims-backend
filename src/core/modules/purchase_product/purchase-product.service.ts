@@ -7,14 +7,14 @@ import {Service} from "@core/service";
 
 
 @Singleton
-export class PurchaseProductService extends Service<IPurchaseProductDocument>{
+export class PurchaseProductService extends Service<IPurchaseProductDocument, IPurchaseProduct>{
     constructor() {
         super();
         this.setModel(PurchaseProduct);
     }
     async add(product_id:string,product_name:string,batch_no:string,purchase_id:string,expiry:string,quantity:number,unit_buying_price:number,unit_selling_price:number):Promise<IPurchaseProductDocument> {
         const expiry_date=new Date(expiry);
-        const purchaseProduct = new PurchaseProduct({
+        const purchaseProduct = this.builder({
                 product_id,
                 product_name,
                 batch_no,
@@ -23,8 +23,7 @@ export class PurchaseProductService extends Service<IPurchaseProductDocument>{
                 quantity,
                 unit_buying_price,
                 unit_selling_price,
-            }
-        )
+            });
         return purchaseProduct.save();
     }
 

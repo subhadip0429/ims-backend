@@ -2,24 +2,32 @@ import {
     Aggregate,
     Document, DocumentDefinition,
     FilterQuery,
-    Model,
     QueryOptions,
     QueryWithHelpers, SaveOptions,
     UpdateQuery,
     UpdateWriteOpResult
 } from "mongoose";
+import {SoftDeleteModel} from "mongoose-delete";
 import {DeleteWriteOpResultObject} from "mongodb";
 import {IPaginate, IService, PaginationOptions} from "@core/typing";
 
-export class Service<T extends Document> implements IService{
-    _model: Model<T>;
+export class Service<T extends Document, K = any> implements IService<SoftDeleteModel<T>>{
+    _model: SoftDeleteModel<T>;
 
-    getModel(): Model<T> {
+    getModel(): SoftDeleteModel<T> {
         return this._model;
     }
 
-    setModel(model:Model<T>) {
+    setModel(model:SoftDeleteModel<T>) {
         this._model = model;
+    }
+
+    raw(): SoftDeleteModel<T> {
+       return this.getModel();
+    }
+
+    builder(doc:K){
+        return new this._model(doc);
     }
 
     create(docs: (T | DocumentDefinition<T>)[], options: SaveOptions = {}): Promise<T[]>{

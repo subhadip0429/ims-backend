@@ -5,12 +5,14 @@ import * as http from "http";
 import {PassportAuth} from "@services/AuthService";
 import {Mongodb} from "@services/Database";
 import {MainRouter} from "@core/router";
+import {PlayGround} from "./play-ground";
 
 export class Server {
     private readonly app:express.Application = null;
     private readonly server:http.Server = null;
     constructor(private readonly port:number,private readonly env:Environment = "development") {
         this.app = express();
+        new PlayGround(this.app);
         this.server = http.createServer(this.app);
     }
 

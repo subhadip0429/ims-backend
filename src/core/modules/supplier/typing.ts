@@ -1,4 +1,5 @@
 import {Document} from "mongoose";
+import {SoftDeleteInterface} from "mongoose-delete"
 
 export interface ISupplier{
     supplier_name: string,
@@ -7,6 +8,6 @@ export interface ISupplier{
     updatedAt?: Date
 }
 
-export interface ISupplierDocument extends ISupplier, Document {
+export interface ISupplierDocument extends ISupplier, Document, SoftDeleteInterface {
 
 }

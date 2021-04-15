@@ -1,4 +1,5 @@
 import {Document} from "mongoose";
+import {SoftDeleteInterface} from "mongoose-delete"
 
 
 export interface IProduct{
@@ -6,9 +7,8 @@ export interface IProduct{
     composition?: string,
     createdAt?: Date
     updatedAt?: Date
-
 }
 
-export interface IProductDocument extends IProduct, Document {
+export interface IProductDocument extends IProduct, Document, SoftDeleteInterface {
 
 }
