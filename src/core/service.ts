@@ -9,7 +9,7 @@ import {
     UpdateWriteOpResult
 } from "mongoose";
 import {DeleteWriteOpResultObject} from "mongodb";
-import {IService} from "@core/typing";
+import {IPaginate, IService, PaginationOptions} from "@core/typing";
 
 export class Service<T extends Document> implements IService{
     _model: Model<T>;
@@ -42,7 +42,7 @@ export class Service<T extends Document> implements IService{
         return this._model.findOne(filter, projection, options);
     }
 
-    find(filter: FilterQuery<T> = {}, projection: any | null = null, options: QueryOptions | null = {}):QueryWithHelpers<T[], T, {}> {
+    find(filter: FilterQuery<T> = {}, projection: any | null = {}, options: QueryOptions | null = {}):QueryWithHelpers<T[], T, {}> {
         return this._model.find(filter, projection, options);
     }
 
@@ -62,8 +62,27 @@ export class Service<T extends Document> implements IService{
         return this._model.deleteOne(filter, options);
     }
 
-    aggregate<R = any>(pipeline?: any[]): Aggregate<Array<R>> {
-        return this._model.aggregate()
+    aggregate<R = any>(pipeline = []): Aggregate<Array<R>> {
+        return this._model.aggregate(pipeline)
+    }
+
+    paginate(filter: FilterQuery<T> = {}, projection: any | null = {}, options:PaginationOptions<T> = {size: 10, page: 0, sortBy: {_id: 1}}): Promise<IPaginate<T>>{
+        const query = this.find(filter, projection)
+        return this.paginateQuery(query,options);
+    }
+
+    async paginateQuery(query: QueryWithHelpers<T[], T, {}>, options:PaginationOptions<T> = {size: 10, page: 0, sortBy: {_id: 1}}){
+        const data = await query
+            .sort(options.sortBy)
+            .skip(options.page)
+            .limit(options.size)
+            .exec();
+
+        return {
+            data,
+            page: options.page,
+            pageSize: options.size
+        }
     }
 
 }
