@@ -1,7 +1,7 @@
 import {Application, NextFunction, Request, Response} from "express";
 import {initialize as initializePassport, use as passportUse, session as SessionStrategy, authenticate as passportAuthenticate, AuthenticateOptions} from "passport";
 import {ExtractJwt, Strategy, StrategyOptions as JWTStrategyOptions} from "passport-jwt";
-import {User} from "@modules/user";
+import {UserService} from "@modules/user";
 export class PassportAuth {
 
     static initiate(app:Application){
@@ -29,7 +29,7 @@ export class PassportAuth {
         }
         return new Strategy(options, async (payload, done) =>{
             try{
-                const user = await User.findOne({_id: payload.user_id})
+                const user = await new UserService().findById(payload.user_id).exec()
                 if(user){
                     return done(null,user)
                 }else{
