@@ -41,10 +41,4 @@ export class PurchaseProductService extends Service<IPurchaseProductDocument, IP
         const totalAmount=netAmount+(netAmount*GST_RATE);
         return {netAmount,totalAmount,product_count:products.length};
     }
-
-    calculateTotalAmountFromInput(products : any[]){
-        const netAmount=products.reduce((sum,product) => sum+=product.quantity*product.unit_buying_price,0);
-        const totalAmount=netAmount+(netAmount*GST_RATE);
-        return {netAmount,totalAmount,product_count:products.length};
-    }
 }
