@@ -2,13 +2,8 @@ import {Router as ExpressRouter } from "express";
 import {UserRouter} from "@modules/user";
 import {initializeNewExpressRouter} from "@helpers";
 import {PurchaseRouter} from "@modules/purchase";
-import {IRouter} from "@core/typing";
 
-export abstract class Router implements IRouter{
-
-}
-
-export class MainRouter extends Router {
+export class MainRouter{
     static privateRoutes():ExpressRouter{
         let privateRouter:ExpressRouter = initializeNewExpressRouter();
         privateRouter.use('/user', UserRouter.privateRoutes());

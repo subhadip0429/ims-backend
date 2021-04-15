@@ -1,13 +1,10 @@
-import {Router} from "@core/router";
 import {Router as ExpressRouter} from "express";
 import {PurchaseController} from "@modules/purchase/purchase.controller";
 import {handle_request} from "@middlewares";
 import {validate_request} from "@middlewares";
 import {initializeNewExpressRouter} from "@helpers";
 
-
-
-export class PurchaseRouter extends Router{
+export class PurchaseRouter{
     static publicRoutes():ExpressRouter{
         const router = initializeNewExpressRouter();
         return router ;

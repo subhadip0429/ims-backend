@@ -1,10 +1,14 @@
 import {Singleton} from "@decorators";
 import {Supplier} from "./supplier.model";
-import {ISupplier, ISupplierDocument} from "./typing";
+import {ISupplierDocument} from "./typing";
 import {Service} from "@core/service";
 
 @Singleton
 export  class SupplierService extends Service<ISupplierDocument>{
+    constructor() {
+        super();
+        this.setModel(Supplier);
+    }
     async add(supplier_name:string,supplier_address:string = null):Promise<ISupplierDocument>{
         const supplier=new Supplier({
             supplier_name

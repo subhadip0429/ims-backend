@@ -1,5 +1,3 @@
-import {Router} from "express";
-import {Model} from "mongoose"
 export interface IController{
 
 }

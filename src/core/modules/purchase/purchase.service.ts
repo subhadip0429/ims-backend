@@ -2,13 +2,17 @@ import {Singleton} from "@decorators";
 import {SupplierService} from "@modules/supplier";
 import {PurchaseProductService} from "@modules/purchase_product";
 import {Purchase} from "./purchase.model";
-import {IPurchase, IPurchaseDocument} from "./typing";
+import {IPurchaseDocument} from "./typing";
 import {IUserDocument} from "@modules/user";
 import {Service} from "@core/service";
 
 
 @Singleton
 export class PurchaseService extends Service<IPurchaseDocument>{
+    constructor() {
+        super();
+        this.setModel(Purchase);
+    }
     async add(bill_no:string, bill_date:string, supplier_name:string, createdBy:IUserDocument, product_list:any[]):Promise<IPurchaseDocument>{
         const billDate = new Date(bill_date);
         const supplierService=new SupplierService();

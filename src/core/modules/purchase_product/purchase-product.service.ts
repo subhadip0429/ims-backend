@@ -8,6 +8,10 @@ import {Service} from "@core/service";
 
 @Singleton
 export class PurchaseProductService extends Service<IPurchaseProductDocument>{
+    constructor() {
+        super();
+        this.setModel(PurchaseProduct);
+    }
     async add(product_id:string,product_name:string,batch_no:string,purchase_id:string,expiry:string,quantity:number,unit_buying_price:number,unit_selling_price:number):Promise<IPurchaseProductDocument> {
         const expiry_date=new Date(expiry);
         const purchaseProduct = new PurchaseProduct({

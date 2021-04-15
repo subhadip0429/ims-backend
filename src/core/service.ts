@@ -11,7 +11,7 @@ import {
 import {DeleteWriteOpResultObject} from "mongodb";
 import {IService} from "@core/typing";
 
-export class Service<T extends Document> extends Model implements IService{
+export class Service<T extends Document> implements IService{
     _model: Model<T>;
 
     getModel(): Model<T> {

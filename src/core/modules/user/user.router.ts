@@ -1,4 +1,3 @@
-import {Router} from "@core/router";
 import {Router as ExpressRouter} from "express";
 import {UserController} from "./user.controller";
 import {handle_request} from "@middlewares";
@@ -6,7 +5,7 @@ import {validate_request} from "@middlewares";
 import {initializeNewExpressRouter} from "@helpers";
 import {verify_admin} from "@utils/middlewares/verify-admin.middleware";
 
-export class UserRouter extends Router {
+export class UserRouter {
     static publicRoutes():ExpressRouter{
         const router = initializeNewExpressRouter();
         router.post('/', validate_request({
