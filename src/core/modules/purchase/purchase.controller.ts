@@ -12,11 +12,35 @@ export class PurchaseController extends Controller implements IController {
             return response_handler(HTTP_STATUS.BAD_REQUEST, "At least one product needs to be added into the list")
         }
         const createdBy=request.loggedUser;
-        const result=await new PurchaseService().add(bill_no,bill_date,supplier_name,createdBy,product_list);
-        return response_handler(HTTP_STATUS.CREATED,"Purchase Added",result);
+        try{
+            const result=await new PurchaseService().add(bill_no,bill_date,supplier_name,createdBy,product_list);
+            return response_handler(HTTP_STATUS.CREATED,"Purchase Added",result);
+        }
+        catch(e){
+            if(e.code == 11000){
+                return response_handler(HTTP_STATUS.BAD_REQUEST, "This bill no is  Already added ");
+            }
+            throw e;
+        }
+
     }
 
-    static getPurchaseBill(request:Request){
+    static async getPurchaseBills(request:Request){
+        const purchaseData=await new PurchaseService().getBills();
+        return response_handler(HTTP_STATUS.SUCCESS,"Purchase Data",purchaseData);
+    }
 
+    static async getPurchaseBillByID(payload,request:Request){
+        const {id}=payload;
+        try{
+            const purchaseDataById=await new PurchaseService().getBillById(id);
+            return response_handler(HTTP_STATUS.SUCCESS,"Purchase Data",purchaseDataById);
+        }
+        catch(e){
+            if(e.code == 11000){
+                return response_handler(HTTP_STATUS.BAD_REQUEST, "Issue in finding Data ");
+            }
+            throw e;
+        }
     }
 }

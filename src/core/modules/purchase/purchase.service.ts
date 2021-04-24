@@ -33,4 +33,15 @@ export class PurchaseService extends Service<IPurchaseDocument, IPurchase>{
         await purchaseProductService.addMultiple(product_list, purchase._id);
         return purchase;
     }
+
+    async getBills(){
+        return await this.find();
+    }
+
+    async getBillById(id:string){
+        const purchaseProductService=new PurchaseProductService();
+        const purchase_data=await this.findById(id);
+        // return purchase_data;
+       return await purchaseProductService.getProductById(purchase_data._id);
+    }
 }

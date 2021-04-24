@@ -41,4 +41,8 @@ export class PurchaseProductService extends Service<IPurchaseProductDocument, IP
         const totalAmount=netAmount+(netAmount*GST_RATE);
         return {netAmount,totalAmount,product_count:products.length};
     }
+
+    async getProductById(purchase_id:string){
+        return await this.findOne({purchase_id});
+    }
 }
