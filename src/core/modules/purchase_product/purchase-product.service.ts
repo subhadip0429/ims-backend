@@ -43,6 +43,6 @@ export class PurchaseProductService extends Service<IPurchaseProductDocument, IP
     }
 
     async getProductById(purchase_id:string){
-        return await this.findOne({purchase_id});
+        return this.findOne({purchase_id});
     }
 }

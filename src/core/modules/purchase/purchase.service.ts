@@ -38,10 +38,8 @@ export class PurchaseService extends Service<IPurchaseDocument, IPurchase>{
         return await this.find();
     }
 
-    async getBillById(id:string){
-        const purchaseProductService=new PurchaseProductService();
-        const purchase_data=await this.findById(id);
-        // return purchase_data;
-       return await purchaseProductService.getProductById(purchase_data._id);
+    async getPurchaseBillByID(id:string){
+       const purchaseProductService=new PurchaseProductService();
+       return purchaseProductService.getProductById(id);
     }
 }

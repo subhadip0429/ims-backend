@@ -16,10 +16,8 @@ export class PurchaseRouter{
             body: ["bill_no","bill_date","supplier_name","product_list"]
         }) ,handle_request(PurchaseController.addPurchase));
 
-        router.get('/bills',handle_request(PurchaseController.getPurchaseBills));
-        router.get('/bill/byid',validate_request({
-            body:["id"]
-        }),handle_request(PurchaseController.getPurchaseBillByID));
+        router.get('/bill',handle_request(PurchaseController.getPurchaseBills));
+        router.get('/bill/:id',handle_request(PurchaseController.getPurchaseBillByID));
         return router ;
 
     }

@@ -33,7 +33,7 @@ export class PurchaseController extends Controller implements IController {
     static async getPurchaseBillByID(payload,request:Request){
         const {id}=payload;
         try{
-            const purchaseDataById=await new PurchaseService().getBillById(id);
+            const purchaseDataById=await new PurchaseService().getPurchaseBillByID(id);
             return response_handler(HTTP_STATUS.SUCCESS,"Purchase Data",purchaseDataById);
         }
         catch(e){

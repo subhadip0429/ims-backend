@@ -13,9 +13,7 @@ export class PurchaseProductRouter{
 
     static privateRoutes():ExpressRouter{
         const router = initializeNewExpressRouter();
-        router.get('/bill',validate_request({
-            body:["purchase_id"]
-        }),handle_request(PurchaseProductController.getPurchaseBillByID));
+        router.get('/bill/:purchase_id',handle_request(PurchaseProductController.getPurchaseBillByID));
         return router ;
     }
 }
